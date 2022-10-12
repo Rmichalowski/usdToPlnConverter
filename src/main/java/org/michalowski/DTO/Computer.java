@@ -1,7 +1,6 @@
 package org.michalowski.DTO;
 
 import org.michalowski.UTILS.Converter;
-
 import java.time.LocalDate;
 
 public class Computer {

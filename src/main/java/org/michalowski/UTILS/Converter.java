@@ -3,9 +3,6 @@ package org.michalowski.UTILS;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
@@ -29,7 +26,6 @@ public class Converter {
                 con.setRequestMethod("GET");
                 con.connect();
                 int responseCode = con.getResponseCode();
-                //System.out.println(responseCode);
                 if (responseCode != 200) {
                     throw new RuntimeException("Niepowodzenie, kod: " + responseCode);
                 } else {

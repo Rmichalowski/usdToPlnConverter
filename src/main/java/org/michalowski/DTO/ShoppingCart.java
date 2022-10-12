@@ -2,9 +2,6 @@ package org.michalowski.DTO;
 
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
