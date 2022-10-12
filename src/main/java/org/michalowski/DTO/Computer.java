@@ -1,23 +1,24 @@
 package org.michalowski.DTO;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.michalowski.UTILS.Converter;
 
-@XmlRootElement
+import java.time.LocalDate;
+
 public class Computer {
 
-    @XmlElement
     private String name;
-
-    @XmlElement
-    private double price;
+    private double priceUSD;
+    private double pricePLN;
+    private LocalDate postingDate;
 
     public Computer() {
     }
 
-    public Computer(String name, double price) {
+    public Computer(String name, double price, LocalDate postingDate) {
         this.name = name;
-        this.price = price;
+        this.priceUSD = price;
+        this.postingDate = postingDate;
+        pricePLN = Converter.convertUsdToPln(price, postingDate);
     }
 
     public String getName() {
@@ -28,22 +29,45 @@ public class Computer {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPriceUSD() {
+        Math.round(priceUSD);
+        return priceUSD;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPriceUSD(double price) {
+        this.priceUSD = price;
+    }
+
+    public double getPricePLN() {
+        //return pricePLN;
+        return ((double)Math.round(pricePLN*100)/100);
+    }
+
+    public void setPricePLN(double pricePLN) {
+        this.pricePLN = pricePLN;
+    }
+
+    public LocalDate getPostingDate() {
+        return postingDate;
+    }
+
+    public void setPostingDate(LocalDate postingDate) {
+        this.postingDate = postingDate;
     }
 
     @Override
     public String toString() {
-        return "-" + name + " - kwota" + price + " USD.";
+        return "-" + name + " - kwota" + priceUSD + " USD.";
     }
 
-    public String toXML() {
+    public StringBuilder toXML() {
         StringBuilder xml = new StringBuilder();
-        xml.append("<komputer>\n");
-
+        xml.append("    " +"<komputer>\n");
+        xml.append( "    " + "    " + "<nazwa>" + getName() + "</nazwa>\n");
+        xml.append("    " + "    " + "<data_ksiegowania>" + getPostingDate() + "</data_ksiegowania>\n");
+        xml.append("    " + "    " + "<koszt_USD>" + getPriceUSD() + "</koszt_USD>\n");
+        xml.append("    " + "    " + "<koszt_PLN>" + getPricePLN() + "</koszt_PLN>\n");
+        xml.append("    " +"</komputer>\n");
+        return xml;
     }
 }
