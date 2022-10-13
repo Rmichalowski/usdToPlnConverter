@@ -1,6 +1,10 @@
 package org.michalowski;
 
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.michalowski.DTO.Computer;
 import org.michalowski.DTO.ShoppingCart;
 
@@ -20,21 +24,32 @@ import java.sql.Statement;
 public class Main {
     public static void main(String[] args) {
 
+        ShoppingCart cart = new ShoppingCart();
+
         Computer computer1 = new Computer("komputer1", 345, LocalDate.of(2022, 04, 04));
         Computer computer2 = new Computer("komputer2", 543, LocalDate.of(2022, 04, 04));
         Computer computer3 = new Computer("komputer3", 346, LocalDate.of(2022, 04, 04));
-        ShoppingCart cart = new ShoppingCart(new ArrayList<Computer>(Arrays.asList(computer1, computer2, computer3)));
+
+        cart.addComputer(computer1);
+        cart.addComputer(computer2);
+        cart.addComputer(computer3);
 
         System.out.println(cart.getTotalPricePLN() + "PLN");
         cart.toFileXML();
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("cart_catalog");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("cart");
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         entityManager.getTransaction().begin();
+        entityManager.persist(computer1);
+        entityManager.persist(computer2);
+        entityManager.persist(computer3);
         entityManager.persist(cart);
         entityManager.getTransaction().commit();
+
+
+
 
     }
 }

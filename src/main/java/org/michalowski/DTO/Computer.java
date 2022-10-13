@@ -1,13 +1,10 @@
 package org.michalowski.DTO;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.michalowski.UTILS.Converter;
 import java.time.LocalDate;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Computer")
@@ -25,16 +22,29 @@ public class Computer {
     @Column(name = "postingDate")
     private LocalDate postingDate;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "shoppingCartID")
+    private ShoppingCart shoppingCartID;
+
     public Computer() {
     }
 
-    public Computer(String name, double price, LocalDate postingDate) {
+    public Computer(String name, double price, LocalDate postingDate ) {
         this.name = name;
         this.priceUSD = price;
         this.postingDate = postingDate;
         pricePLN = Converter.convertUsdToPln(price, postingDate);
+
+
     }
 
+    public ShoppingCart getShoppingCart() {
+        return shoppingCartID;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCartID) {
+        this.shoppingCartID = shoppingCartID;
+    }
 
     public Long getId() { return id; }
 

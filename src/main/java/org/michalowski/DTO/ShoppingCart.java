@@ -2,6 +2,8 @@ package org.michalowski.DTO;
 
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
+
+import javax.persistence.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -10,19 +12,30 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity
+@Table(name = "ShoppingCart")
 public class ShoppingCart {
 
-    List<Computer> computers;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @OneToMany(mappedBy = "shoppingCartID")
+    List<Computer> computers = new ArrayList<>();
+    @Column(name = "name")
     double totalPriceUSD;
     double totalPricePLN;
 
     public ShoppingCart() {
+
+        totalPricePLN = 0;
+        totalPriceUSD = 0;
     }
 
-    public ShoppingCart(List<Computer> computers) {
+    public ShoppingCart(ArrayList<Computer> computers) {
         this.computers = computers;
         for (Computer computer : computers){
             totalPriceUSD += computer.getPriceUSD();
@@ -32,6 +45,7 @@ public class ShoppingCart {
 
     public void addComputer(Computer computer) {
         computers.add(computer);
+        computer.setShoppingCart(this);
         totalPriceUSD += computer.getPriceUSD();
         totalPricePLN += computer.getPricePLN();
     }
