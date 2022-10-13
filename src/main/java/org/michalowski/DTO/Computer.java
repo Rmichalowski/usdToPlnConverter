@@ -2,12 +2,27 @@ package org.michalowski.DTO;
 
 import org.michalowski.UTILS.Converter;
 import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Computer")
 public class Computer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "priceUSD")
     private double priceUSD;
+    @Column(name = "pricePLN")
     private double pricePLN;
+    @Column(name = "postingDate")
     private LocalDate postingDate;
 
     public Computer() {
@@ -19,6 +34,12 @@ public class Computer {
         this.postingDate = postingDate;
         pricePLN = Converter.convertUsdToPln(price, postingDate);
     }
+
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
+
 
     public String getName() {
         return name;

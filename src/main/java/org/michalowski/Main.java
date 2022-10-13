@@ -1,9 +1,12 @@
 package org.michalowski;
 
-import JDBC.JDBC;
+
 import org.michalowski.DTO.Computer;
 import org.michalowski.DTO.ShoppingCart;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.time.LocalDate;
@@ -24,5 +27,14 @@ public class Main {
 
         System.out.println(cart.getTotalPricePLN() + "PLN");
         cart.toFileXML();
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("cart_catalog");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(cart);
+        entityManager.getTransaction().commit();
+
     }
 }
