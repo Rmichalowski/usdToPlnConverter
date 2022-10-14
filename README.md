@@ -9,7 +9,9 @@ Plik domyślnie eksportowany jest do "../usdToPlnConverter/faktura.xml".
 Program współpracuje z bazą danych MYSQL konfigurowaną w pliku java/resources/META-INF/persistence.xml .
 
 Wersja javy: 17.0.2
+
 Użyte środowisko: IntelliJ + maven
+
 Użyta baza danych: MYSQL
 
 
