@@ -27,7 +27,7 @@ public class Converter {
                 con.connect();
                 int responseCode = con.getResponseCode();
                 if (responseCode != 200) {
-                    throw new RuntimeException("Niepowodzenie, kod: " + responseCode);
+                    throw new RuntimeException("Error: " + responseCode);
                 } else {
                     Scanner scanner = new Scanner(url.openStream());
                     while (scanner.hasNext()) {

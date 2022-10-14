@@ -1,7 +1,5 @@
 package org.michalowski.DTO;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.michalowski.UTILS.Converter;
 import java.time.LocalDate;
 import javax.persistence.*;
@@ -34,8 +32,6 @@ public class Computer {
         this.priceUSD = price;
         this.postingDate = postingDate;
         pricePLN = Converter.convertUsdToPln(price, postingDate);
-
-
     }
 
     public ShoppingCart getShoppingCart() {
@@ -69,7 +65,6 @@ public class Computer {
     }
 
     public double getPricePLN() {
-        //return pricePLN;
         return ((double)Math.round(pricePLN*100)/100);
     }
 

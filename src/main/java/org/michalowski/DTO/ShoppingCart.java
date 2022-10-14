@@ -2,7 +2,6 @@ package org.michalowski.DTO;
 
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-
 import javax.persistence.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,7 +29,6 @@ public class ShoppingCart {
     double totalPricePLN;
 
     public ShoppingCart() {
-
         totalPricePLN = 0;
         totalPriceUSD = 0;
     }
@@ -97,7 +95,7 @@ public class ShoppingCart {
             StreamResult result = new StreamResult(new File("../usdToPlnConverter/faktura.xml"));
             transformer.transform(source, result);
         }
-        catch (Exception e) { }
+        catch (Exception e) {}
 
     }
 

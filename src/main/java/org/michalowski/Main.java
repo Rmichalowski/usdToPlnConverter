@@ -1,29 +1,17 @@
 package org.michalowski;
 
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.michalowski.DTO.Computer;
 import org.michalowski.DTO.ShoppingCart;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) {
 
+        //Tworzenie obiektów z zadania
         ShoppingCart cart = new ShoppingCart();
 
         Computer computer1 = new Computer("komputer1", 345, LocalDate.of(2022, 04, 04));
@@ -34,9 +22,12 @@ public class Main {
         cart.addComputer(computer2);
         cart.addComputer(computer3);
 
+
         System.out.println(cart.getTotalPricePLN() + "PLN");
+        //Zapis do XML
         cart.toFileXML();
 
+        //Zapis do bazy danych (użyto bazy danych MYSQL workbench skonfigurowana w resources/META-INF/persistence.xml)
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("cart");
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -47,9 +38,6 @@ public class Main {
         entityManager.persist(computer3);
         entityManager.persist(cart);
         entityManager.getTransaction().commit();
-
-
-
 
     }
 }
